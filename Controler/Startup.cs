@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Repos;
+using Toolkit;
 using Repos.Interfaces;
 
 namespace Controllers
@@ -31,7 +32,7 @@ namespace Controllers
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            
             services.AddScoped<IUserManager, UserManager>();
             services.AddTransient<IUserRepository, UserRepo>();
             services.AddSingleton<IFlayDatabase, Database.Database>();
@@ -41,7 +42,7 @@ namespace Controllers
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:8080")
+                    builder.WithOrigins("http://localhost:8080", "http://localhost:8081")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });

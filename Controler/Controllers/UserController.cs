@@ -28,7 +28,7 @@ namespace Controllers
         {
             return _userManager.GetUsers();
         }
-
+            
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public JsonResult Authenticate([FromBody] AuthenticateModel model)
@@ -36,22 +36,17 @@ namespace Controllers
             var user = _userManager.Authenticate(model.Username, model.Password);
 
             if (user == null)
-                return new JsonResult(new { message = "Username or password is incorrect" });
+                return new JsonResult(new User());
 
             return new JsonResult(user);
         }
 
-        [AllowAnonymous]
-        [HttpPost("authenticate2")]
-        public JsonResult Authenticate(string username)
+        [HttpPost("test")]
+        [Authorize(Roles = "Admin")]
+        public JsonResult Test()
         {
-            var password = "admin";
-            var user = _userManager.Authenticate(username, password);
-
-            if (user == null)
-                return new JsonResult(new { message = "Username or password is incorrect" });
-
-            return new JsonResult(user);
+            var a = "Funciona";
+            return new JsonResult(a);
         }
     }
 }
