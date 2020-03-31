@@ -24,7 +24,7 @@ namespace Toolkit
 
             var userCollection = _database.GetCollection<User>("users");
             var admin = userCollection.AsQueryable().Where(_ => _.Username == "admin").SingleOrDefault();
-            admin.Roles = new List<string>() { "Admin" };
+            admin.Role = "Admin";
             userCollection.ReplaceOne(user => user.Id == admin.Id, admin);
             Console.WriteLine("User updated!.");
             Console.WriteLine("Finish!");
