@@ -48,5 +48,12 @@ namespace Controllers
             var a = "Funciona";
             return new JsonResult(a);
         }
+
+        [HttpGet("gettest")]
+        [Authorize(Roles = "Admin")]
+        public JsonResult GetTest(string name)
+        {
+            return new JsonResult($"Funciona el get {name}");
+        }
     }
 }
