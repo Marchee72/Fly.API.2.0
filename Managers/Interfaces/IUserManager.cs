@@ -9,6 +9,6 @@ namespace Managers.Interfaces
     public interface IUserManager
     {
         public IQueryable<User> GetUsers();
-        public User Authenticate(string username, string password);
+        public List<Role.Access> GetPermissions(string roleId);
     }
 }

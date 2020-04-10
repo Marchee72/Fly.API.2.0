@@ -8,7 +8,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using static Entities.DatabaseModels.Role;
 
 namespace Controllers
 {
@@ -16,44 +18,20 @@ namespace Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private IUserManager _userManager;
+        private readonly IUserManager _userManager;
 
         public UserController(IUserManager userManager)
         {
             _userManager = userManager;
         }
 
-        [HttpGet]
-        public IQueryable<User> SayHi()
+        [Authorize]
+        [HttpGet("getPermisions")]
+        public List<Access> GetPermissions()
         {
-            return _userManager.GetUsers();
-        }
-            
-        [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public JsonResult Authenticate([FromBody] AuthenticateModel model)
-        {
-            var user = _userManager.Authenticate(model.Username, model.Password);
+            var roleName = User.Claims.First(_ => _.Type == ClaimTypes.Role).Value;
+            return _userManager.GetPermissions(roleName);
 
-            if (user == null)
-                return new JsonResult(new User());
-
-            return new JsonResult(user);
-        }
-
-        [HttpPost("test")]
-        [Authorize(Roles = "Admin")]
-        public JsonResult Test()
-        {
-            var a = "Funciona";
-            return new JsonResult(a);
-        }
-
-        [HttpGet("gettest")]
-        [Authorize(Roles = "Admin")]
-        public JsonResult GetTest(string name)
-        {
-            return new JsonResult($"Funciona el get {name}");
         }
     }
 }

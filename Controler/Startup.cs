@@ -34,7 +34,11 @@ namespace Controllers
             services.AddControllers();
             
             services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IAuthManager, AuthManager>();
+
             services.AddTransient<IUserRepository, UserRepo>();
+            services.AddTransient<IRoleRepository, RoleRepo>();
+
             services.AddSingleton<IFlayDatabase, Database.Database>();
 
             services.AddCors(options =>

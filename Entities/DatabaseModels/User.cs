@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Entities.Lw;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Entities.DatabaseModels
         public string Name { get; set; }
         public string Lastname { get; set; }
         public string Token { get; set; }
-        public string Role { get; set; }
+        public RoleLw Role { get; set; }
 
     }
 }

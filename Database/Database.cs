@@ -12,11 +12,15 @@ namespace Database
     {
         private IMongoDatabase _database;
         public IMongoCollection<User> Users { get; private set; }
+        public IMongoCollection<Role> Roles { get; private set; }
+
         public Database()
         {
             var client = new MongoClient("mongodb://localhost:27017");
             _database = client.GetDatabase("Flay");
             Users = _database.GetCollection<User>("users");
+            Roles = _database.GetCollection<Role>("roles");
+
         }
 
         public IMongoDatabase GetMongoConfig() => _database;

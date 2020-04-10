@@ -17,39 +17,17 @@ namespace Managers
     public class UserManager : IUserManager
     {
         public IUserRepository _users;
-        private readonly AppSettings _appSettings;
+        public IRoleRepository _roles;
 
-        public UserManager(IOptions<AppSettings> appSettings, IUserRepository users)
+        public UserManager(IUserRepository users, IRoleRepository roles)
         {
-            _appSettings = appSettings.Value;
             _users = users;
+            _roles = roles;
         }
 
-        public User Authenticate(string username, string password)
+        public List<Role.Access> GetPermissions(string roleId)
         {
-            var user = _users.Get(username, password);
-
-            // return null if user not found
-            if (user == null)
-                return null;
-
-            // authentication successful so generate jwt token
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role)
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
-
-            return user.WithoutPassword();
+            return _roles.GetByName(roleId).Accesses;
         }
 
         public IQueryable<User> GetUsers()

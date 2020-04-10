@@ -11,5 +11,7 @@ namespace Database.Interfaces
     {
         public IMongoDatabase GetMongoConfig();
         public IMongoCollection<User> Users { get; }
+        public IMongoCollection<Role> Roles { get; }
+
     }
 }
