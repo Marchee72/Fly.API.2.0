@@ -11,7 +11,7 @@ namespace Repos
 {
     public class RoleRepo : IRoleRepository
     {
-        IMongoCollection<Role> _roles;
+        private readonly IMongoCollection<Role> _roles;
         public RoleRepo(IFlayDatabase database)
         {
             _roles = database.Roles;

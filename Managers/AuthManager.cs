@@ -14,7 +14,7 @@ namespace Managers
 {
     public class AuthManager : IAuthManager
     {
-        public IUserRepository _users;
+        private readonly IUserRepository _users;
         private readonly AppSettings _appSettings;
 
         public AuthManager(IOptions<AppSettings> appSettings, IUserRepository users)

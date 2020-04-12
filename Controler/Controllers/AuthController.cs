@@ -14,7 +14,7 @@ namespace Controllers.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        private IAuthManager _authManager;
+        private readonly IAuthManager _authManager;
 
         public AuthController(IAuthManager userManager)
         {
@@ -23,14 +23,10 @@ namespace Controllers.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public JsonResult Authenticate([FromBody] AuthenticateModel model)
+        public User Authenticate([FromBody] AuthenticateModel model)
         {
             var user = _authManager.Authenticate(model.Username, model.Password);
-
-            if (user == null)
-                return new JsonResult(new User());
-
-            return new JsonResult(user);
+            return user ?? new User();
         }
     }
 }

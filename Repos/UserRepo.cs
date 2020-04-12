@@ -12,7 +12,7 @@ namespace Repos
 {
     public class UserRepo : IUserRepository
     {
-        IMongoCollection<User> _users;
+        private readonly IMongoCollection<User> _users;
 
         public UserRepo(IFlayDatabase database)
         {

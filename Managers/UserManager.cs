@@ -16,8 +16,8 @@ namespace Managers
 {
     public class UserManager : IUserManager
     {
-        public IUserRepository _users;
-        public IRoleRepository _roles;
+        private readonly IUserRepository _users;
+        private readonly IRoleRepository _roles;
 
         public UserManager(IUserRepository users, IRoleRepository roles)
         {
