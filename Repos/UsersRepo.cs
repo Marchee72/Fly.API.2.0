@@ -10,11 +10,11 @@ using MongoDB.Driver.Linq;
 
 namespace Repos
 {
-    public class UserRepo : IUserRepository
+    public class UsersRepo : IUserRepository
     {
         private readonly IMongoCollection<User> _users;
 
-        public UserRepo(IFlayDatabase database)
+        public UsersRepo(IFlayDatabase database)
         {
             _users = database.Users;
         }

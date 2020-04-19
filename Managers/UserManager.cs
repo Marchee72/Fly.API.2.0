@@ -18,11 +18,13 @@ namespace Managers
     {
         private readonly IUserRepository _users;
         private readonly IRoleRepository _roles;
+        private readonly IPictureRepository _pictures;
 
-        public UserManager(IUserRepository users, IRoleRepository roles)
+        public UserManager(IUserRepository users, IRoleRepository roles, IPictureRepository pictures)
         {
             _users = users;
             _roles = roles;
+            _pictures = pictures;
         }
 
         public List<Role.Access> GetPermissions(string roleId)
@@ -35,5 +37,14 @@ namespace Managers
             return _users.Get();
         }
 
+        public void UpdateImg(string userId, byte[] img)
+        {
+            _pictures.UploadFromBytes(userId, img);
+        }
+        
+        public byte[] GetImg(string userId)
+        {
+            return _pictures.DownloadAsBytes(userId);
+        }
     }
 }

@@ -9,10 +9,10 @@ using System.Text;
 
 namespace Repos
 {
-    public class RoleRepo : IRoleRepository
+    public class RolesRepo : IRoleRepository
     {
         private readonly IMongoCollection<Role> _roles;
-        public RoleRepo(IFlayDatabase database)
+        public RolesRepo(IFlayDatabase database)
         {
             _roles = database.Roles;
         }

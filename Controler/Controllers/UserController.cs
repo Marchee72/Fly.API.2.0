@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using static Entities.DatabaseModels.Role;
 
@@ -32,6 +33,23 @@ namespace Controllers
             var roleName = User.Claims.First(_ => _.Type == ClaimTypes.Role).Value;
             return _userManager.GetPermissions(roleName);
 
+        }
+        [Authorize()]
+        [HttpPost("updateImage")]
+        public void UpdateImage([FromBody]string img)
+        {
+            byte[] bytes = Encoding.ASCII.GetBytes(img);
+
+            var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
+            _userManager.UpdateImg(userId, bytes);
+        }
+        [Authorize()]
+        [HttpGet("getProfilePicture")]
+        public JsonResult GetProfilePicture()
+        {
+            var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
+            var imgBase64 =  Encoding.UTF8.GetString(_userManager.GetImg(userId));
+            return new JsonResult(imgBase64);
         }
     }
 }
