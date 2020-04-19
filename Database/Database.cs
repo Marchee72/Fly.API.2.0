@@ -25,7 +25,7 @@ namespace Database
             UsersPicture = new GridFSBucket(_database, new GridFSBucketOptions
             {
                 BucketName = "usersPicture",
-                ChunkSizeBytes = 1048576, // 1MB
+                ChunkSizeBytes = 1048576 * 2, // 2MB
                 WriteConcern = WriteConcern.WMajority,
                 ReadPreference = ReadPreference.Secondary
             });

@@ -7,6 +7,6 @@ namespace Repos.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
-        public User Get(string username, string password);
+        User Get(string username, string password);
     }
 }

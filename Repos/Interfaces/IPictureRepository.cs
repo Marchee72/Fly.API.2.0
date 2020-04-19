@@ -11,5 +11,7 @@ namespace Repos.Interfaces
         ObjectId UploadFromBytes(string filename, byte[] source);
         ObjectId UploadFromStream(string filename, Stream source);
         byte[] DownloadAsBytes(string filename);
+        void UpdateOrInsertFromBytes(string filename, byte[] source);
+        void RemoveByName(string filename);
     }
 }

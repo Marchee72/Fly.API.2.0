@@ -39,12 +39,16 @@ namespace Managers
 
         public void UpdateImg(string userId, byte[] img)
         {
-            _pictures.UploadFromBytes(userId, img);
+            _pictures.UpdateOrInsertFromBytes(userId, img);
         }
         
         public byte[] GetImg(string userId)
         {
             return _pictures.DownloadAsBytes(userId);
+        }
+        public void RemovePictureByName(string filename)
+        {
+            _pictures.RemoveByName(filename);
         }
     }
 }

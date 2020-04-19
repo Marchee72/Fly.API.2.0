@@ -1,10 +1,12 @@
 ﻿using Database.Interfaces;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 using Repos.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Repos
@@ -16,19 +18,34 @@ namespace Repos
         {
             _bucket = database.UsersPicture;
         }
-        public ObjectId UploadFromBytes(string filename, byte[] source)
+
+        FilterDefinition<GridFSFileInfo> GetFilterByName(string filename) =>
+            Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, filename);
+
+        public ObjectId UploadFromBytes(string filename, byte[] source) =>
+            _bucket.UploadFromBytes(filename, source);
+
+        public ObjectId UploadFromStream(string filename, Stream source) =>
+            _bucket.UploadFromStream(filename, source);
+
+        public byte[] DownloadAsBytes(string filename)
         {
-            return _bucket.UploadFromBytes(filename, source);
+            var img = _bucket.Find(GetFilterByName(filename)).SingleOrDefault();
+            if (img != null)
+                return _bucket.DownloadAsBytesByName(filename);
+            return default;
+        }
+        public void UpdateOrInsertFromBytes(string filename, byte[] source)
+        {
+            var img = _bucket.Find(GetFilterByName(filename)).SingleOrDefault();
+            if (img != null) _bucket.Delete(img.Id);
+            _bucket.UploadFromBytes(filename, source);
         }
 
-        public ObjectId UploadFromStream(string filename, Stream source)
+        public void RemoveByName(string filename)
         {
-            return _bucket.UploadFromStream(filename, source);
-        }
-
-        public byte[] DownloadAsBytes(string userId)
-        {
-            return _bucket.DownloadAsBytesByName(userId);
+            var img = _bucket.Find(GetFilterByName(filename)).SingleOrDefault();
+            if (img != null) _bucket.Delete(img.Id);
         }
     }
 }

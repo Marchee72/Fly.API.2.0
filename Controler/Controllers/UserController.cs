@@ -39,7 +39,6 @@ namespace Controllers
         public void UpdateImage([FromBody]string img)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(img);
-
             var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
             _userManager.UpdateImg(userId, bytes);
         }
@@ -48,8 +47,15 @@ namespace Controllers
         public JsonResult GetProfilePicture()
         {
             var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
-            var imgBase64 =  Encoding.UTF8.GetString(_userManager.GetImg(userId));
-            return new JsonResult(imgBase64);
+            var bytes = _userManager.GetImg(userId);
+            return bytes != null ? new JsonResult(Encoding.UTF8.GetString(bytes)) : new JsonResult(default);
+        }
+        [Authorize()]
+        [HttpGet("removeProfilePicture")]
+        public void RemoveProfilePicture()
+        {
+            var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
+            _userManager.RemovePictureByName(userId);
         }
     }
 }

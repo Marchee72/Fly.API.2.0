@@ -7,6 +7,6 @@ namespace Managers.Interfaces
 {
     public interface IAuthManager
     {
-        public User Authenticate(string username, string password);
+        User Authenticate(string username, string password);
     }
 }
