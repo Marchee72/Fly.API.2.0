@@ -20,5 +20,9 @@ namespace Entities.Others
             Inquilino,
             Propietario
         }
+
+        public static string Admin => Roles.Admin.ToString();
+        public static string Inquilino => Roles.Inquilino.ToString();
+        public static string Propietario => Roles.Propietario.ToString();
     }
 }

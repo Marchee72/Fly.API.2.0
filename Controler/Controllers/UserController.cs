@@ -1,4 +1,5 @@
 ﻿using Entities.DatabaseModels;
+using Entities.Others;
 using Entities.ViewModels;
 using Managers;
 using Managers.Interfaces;
@@ -26,7 +27,7 @@ namespace Controllers
             _userManager = userManager;
         }
 
-        [Authorize]
+        [Authorize()]
         [HttpGet("getPermisions")]
         public List<Access> GetPermissions()
         {
@@ -57,5 +58,19 @@ namespace Controllers
             var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
             _userManager.RemovePictureByName(userId);
         }
+        [Authorize()]
+        [HttpGet("getUser")]
+        public User GetUser()
+        {
+            var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
+            return _userManager.GetUser(userId);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getAllUsers")]
+        public List<User> GetAll()
+        {
+            return _userManager.GetUsers().ToList();
+        }
+
     }
 }

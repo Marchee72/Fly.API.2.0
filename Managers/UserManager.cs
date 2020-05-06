@@ -27,6 +27,11 @@ namespace Managers
             _pictures = pictures;
         }
 
+        public User GetUser(string userId)
+        {
+            return _users.Get(userId).WithoutPassword();
+        }
+
         public List<Role.Access> GetPermissions(string roleId)
         {
             return _roles.GetByName(roleId).Accesses;
