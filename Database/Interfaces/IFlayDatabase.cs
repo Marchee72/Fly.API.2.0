@@ -13,6 +13,7 @@ namespace Database.Interfaces
         public IMongoDatabase GetMongoConfig();
         public IMongoCollection<User> Users { get; }
         public IMongoCollection<Role> Roles { get; }
+        public IMongoCollection<Building> Buildings { get; }
         public IGridFSBucket UsersPicture { get; }
 
     }

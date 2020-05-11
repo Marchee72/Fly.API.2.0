@@ -14,6 +14,7 @@ namespace Database
         private IMongoDatabase _database;
         public IMongoCollection<User> Users { get; private set; }
         public IMongoCollection<Role> Roles { get; private set; }
+        public IMongoCollection<Building> Buildings { get; private set; }
         public IGridFSBucket UsersPicture { get; private set; }
         public Database()
         {
@@ -21,6 +22,7 @@ namespace Database
             _database = client.GetDatabase("Flay");
             Users = _database.GetCollection<User>("users");
             Roles = _database.GetCollection<Role>("roles");
+            Buildings = _database.GetCollection<Building>("buildings");
 
             UsersPicture = new GridFSBucket(_database, new GridFSBucketOptions
             {

@@ -6,6 +6,7 @@ using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Toolkit
@@ -26,11 +27,14 @@ namespace Toolkit
 
             var userCollection = _database.GetCollection<User>("users");
             var roleCollection = _database.GetCollection<Role>("roles");
-
-            var admin = userCollection.AsQueryable().Where(_ => _.Username == "admin").SingleOrDefault();
+            CreateRoles();
+            var admin = new User() { 
+            Username= "admin",
+            Password= "admin"
+            };
             var role = roleCollection.AsQueryable().FirstOrDefault(_ => _.Name == Permissions.Roles.Admin.ToString());
             admin.Role = role.ToLw();
-            userCollection.ReplaceOne(user => user.Id == admin.Id, admin);
+            userCollection.InsertOne(admin);
             Console.WriteLine("User updated!.");
             Console.WriteLine("Finish!");
             Console.ReadKey();
@@ -51,6 +55,23 @@ namespace Toolkit
                 }
             };
             rolesCollection.InsertOne(role);
+            Console.WriteLine("Finish!");
+            Console.ReadKey();
+        }
+        public static void CreateBuilding()
+        {
+            var _database = ConnectToDatabase();
+            var BuildingCollections = _database.GetCollection<Building>("buildings");
+            Console.WriteLine("Nombre edidicio, Nombre calle, Num calle, Cant Dptos");
+            var building = new Building()
+            {
+                BuildingName = Console.ReadLine(),
+                StreetName = Console.ReadLine(),
+                StreetNumber = Console.ReadLine(),
+                Floors = Console.ReadLine()
+
+            };
+            BuildingCollections.InsertOne(building);
             Console.WriteLine("Finish!");
             Console.ReadKey();
         }
