@@ -35,9 +35,11 @@ namespace Controllers
             
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IAuthManager, AuthManager>();
+            services.AddScoped<IBuildingManager, BuildingManager>();
 
             services.AddTransient<IUserRepository, UsersRepo>();
             services.AddTransient<IRoleRepository, RolesRepo>();
+            services.AddTransient<IBuildingRepository, BuildingsRepo>();
             services.AddTransient<IPictureRepository, UsersPictureRepo>();
 
             services.AddSingleton<IFlayDatabase, Database.Database>();

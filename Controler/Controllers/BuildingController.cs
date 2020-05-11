@@ -9,10 +9,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using static Entities.DatabaseModels.Role;
 
 namespace Controllers
 {
@@ -36,10 +32,10 @@ namespace Controllers
         }
 
         [Authorize()]
-        [HttpGet("getAllBuildings")]
-        public JsonResult GetAll()
+        [HttpGet("getAll")]
+        public List<Building> GetAll()
         {
-            return new JsonResult(_buildingManager.GetBuildings().ToList());
+            return _buildingManager.GetBuildings().ToList();
             
         }
 
