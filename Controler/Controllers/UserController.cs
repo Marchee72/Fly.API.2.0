@@ -1,4 +1,5 @@
 ﻿using Entities.DatabaseModels;
+using Entities.Lw;
 using Entities.Others;
 using Entities.ViewModels;
 using Managers;
@@ -70,6 +71,12 @@ namespace Controllers
         public List<User> GetAll()
         {
             return _userManager.GetUsers().ToList();
+        }
+        [Authorize()]
+        [HttpGet("getRoles")]
+        public IEnumerable<RoleLw> GetRoles()
+        {
+            return _userManager.GetRoles();
         }
 
     }

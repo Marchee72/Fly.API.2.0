@@ -1,4 +1,5 @@
 ﻿using Entities.DatabaseModels;
+using Entities.Lw;
 using Helpers;
 using Managers.Interfaces;
 using Microsoft.Extensions.Options;
@@ -46,7 +47,7 @@ namespace Managers
         {
             _pictures.UpdateOrInsertFromBytes(userId, img);
         }
-        
+
         public byte[] GetImg(string userId)
         {
             return _pictures.DownloadAsBytes(userId);
@@ -54,6 +55,13 @@ namespace Managers
         public void RemovePictureByName(string filename)
         {
             _pictures.RemoveByName(filename);
+        }
+
+        public IEnumerable<RoleLw> GetRoles()
+        {
+            return _roles.Get()
+                .ToList()
+                .Select(_ => _.ToLw());
         }
     }
 }

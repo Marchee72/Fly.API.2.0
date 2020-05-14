@@ -1,4 +1,5 @@
 ﻿using Entities.DatabaseModels;
+using Entities.Lw;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace Managers.Interfaces
         void UpdateImg(string userId, byte[] img);
         byte[] GetImg(string userId);
         void RemovePictureByName(string filename);
+        IEnumerable<RoleLw> GetRoles();
     }
 }
