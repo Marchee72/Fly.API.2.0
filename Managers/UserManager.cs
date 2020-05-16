@@ -28,6 +28,10 @@ namespace Managers
             _pictures = pictures;
         }
 
+        public void SaveUser(User user)
+        {
+            _users.Create(user);
+        }
         public User GetUser(string userId)
         {
             return _users.Get(userId).WithoutPassword();

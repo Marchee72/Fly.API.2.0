@@ -9,6 +9,7 @@ namespace Managers.Interfaces
 {
     public interface IUserManager
     {
+        void SaveUser(User user);
         User GetUser(string userId);
         IQueryable<User> GetUsers();
         List<Role.Access> GetPermissions(string roleId);

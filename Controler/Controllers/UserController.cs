@@ -38,7 +38,7 @@ namespace Controllers
         }
         [Authorize()]
         [HttpPost("updateImage")]
-        public void UpdateImage([FromBody]string img)
+        public void UpdateImage([FromBody] string img)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(img);
             var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
@@ -78,6 +78,11 @@ namespace Controllers
         {
             return _userManager.GetRoles();
         }
-
+        [Authorize(Roles = "Admin")]
+        [HttpPost("save")]
+        public void SaveUser([FromBody] User user)
+        {
+            _userManager.SaveUser(user);
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Entities.Lw
 {
     public class RoleLw
     {
+        public RoleLw() { }
         public RoleLw(string id, string name)
         {
             Id = id;
@@ -16,7 +17,7 @@ namespace Entities.Lw
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; private set; }
-        public string Name { get; private set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }
