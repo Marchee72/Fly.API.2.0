@@ -13,14 +13,14 @@ namespace Entities.DatabaseModels
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string Name { get; set; }
-        public List<Access> Accesses { get; set; }
+        public List<Access> AccessList { get; set; }
 
         public class Access
         {
             public Access(){}
-            public Access(Others.Permissions.Access name, string link, string icon)
+            public Access(string name, string link, string icon)
             {
-                Name = name.ToString();
+                Name = name;
                 Link = link;
                 Icon = icon;
             }

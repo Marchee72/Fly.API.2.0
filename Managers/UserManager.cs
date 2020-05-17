@@ -39,7 +39,7 @@ namespace Managers
 
         public List<Role.Access> GetPermissions(string roleId)
         {
-            return _roles.GetByName(roleId).Accesses;
+            return _roles.GetByName(roleId).AccessList;
         }
 
         public IQueryable<User> GetUsers()

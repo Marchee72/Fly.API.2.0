@@ -66,7 +66,7 @@ namespace Controllers
             var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
             return _userManager.GetUser(userId);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Permissions.Roles.Admin)]
         [HttpGet("getAllUsers")]
         public List<User> GetAll()
         {
@@ -78,7 +78,7 @@ namespace Controllers
         {
             return _userManager.GetRoles();
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Permissions.Roles.Admin)]
         [HttpPost("save")]
         public void SaveUser([FromBody] User user)
         {
