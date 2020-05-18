@@ -19,7 +19,7 @@ namespace Entities.DatabaseModels
         public string StreetNumber { get; set; }
         public string Floors { get; set; }
 
-        public User Administrator { get; set; }
+        public UserLw Administrator { get; set; }
 
     }
 }

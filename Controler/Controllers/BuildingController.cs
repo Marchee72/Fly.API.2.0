@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Controllers
 {
@@ -35,17 +36,9 @@ namespace Controllers
         [HttpGet("getAll")]
         public List<Building> GetAll()
         {
-            return _buildingManager.GetBuildings().ToList();
+            var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
+            return _buildingManager.GetBuildings(userId).ToList();
             
         }
-
-        [Authorize()]
-        [HttpGet("getAllByUser")]
-        public List<Building> GetAll(string userId)
-        {
-            return _buildingManager.GetBuildings(userId).ToList();
-
-        }
-
     }
 }

@@ -81,12 +81,30 @@ namespace Toolkit
             Console.WriteLine("Finish!");
             Console.ReadKey();
         }
+
+        public static void UpdateRoles()
+        {
+            var _database = ConnectToDatabase();
+            var userCollection = _database.GetCollection<User>("users");
+            var rolesCollection = _database.GetCollection<Role>("roles");
+            var role = rolesCollection.AsQueryable().FirstOrDefault(_ => _.Name == "Admin");
+            foreach(var user in userCollection.AsQueryable().ToList())
+            {
+                user.Role = role.ToLw();
+                userCollection.ReplaceOne(_ => _.Id == user.Id, user);
+            };
+            
+
+
+            Console.WriteLine("Finish!");
+            Console.ReadKey();
+        }
         public static void CreateBuilding()
         {
             var _database = ConnectToDatabase();
             var BuildingCollections = _database.GetCollection<Building>("buildings");
             var userCollection = _database.GetCollection<User>("users");
-            var user = userCollection.AsQueryable().FirstOrDefault(_ => _.Name == "franco");
+            var user = userCollection.AsQueryable().FirstOrDefault(_ => _.Name == "admin");
             Console.WriteLine("Nombre edidicio, Nombre calle, Num calle, Cant Dptos");
             var building = new Building()
             {
@@ -94,7 +112,7 @@ namespace Toolkit
                 StreetName = Console.ReadLine(),
                 StreetNumber = Console.ReadLine(),
                 Floors = Console.ReadLine(),
-                Administrator = user
+                Administrator = user.ToLw()
 
             };
             BuildingCollections.InsertOne(building);
@@ -112,7 +130,7 @@ namespace Toolkit
             var buildingCollection = _database.GetCollection<Building>("buildings");
             var user = userCollection.AsQueryable().FirstOrDefault(_ => _.Name == "admin");
             var building = buildingCollection.AsQueryable().FirstOrDefault(_ => _.BuildingName == buildingname);
-            building.Administrator = user;
+            building.Administrator = user.ToLw();
             Console.WriteLine("Building updated!.");
             Console.WriteLine("Finish!");
             Console.ReadKey();

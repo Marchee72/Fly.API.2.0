@@ -22,5 +22,9 @@ namespace Entities.DatabaseModels
         public string Token { get; set; }
         public RoleLw Role { get; set; }
 
+        public UserLw ToLw()
+        {
+            return new UserLw(Id, Name);
+        }
     }
 }
