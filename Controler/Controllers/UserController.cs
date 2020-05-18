@@ -1,4 +1,5 @@
 ﻿using Entities.DatabaseModels;
+using Entities.Lw;
 using Entities.Others;
 using Entities.ViewModels;
 using Managers;
@@ -37,7 +38,7 @@ namespace Controllers
         }
         [Authorize()]
         [HttpPost("updateImage")]
-        public void UpdateImage([FromBody]string img)
+        public void UpdateImage([FromBody] string img)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(img);
             var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
@@ -65,12 +66,23 @@ namespace Controllers
             var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
             return _userManager.GetUser(userId);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Permissions.Roles.Admin)]
         [HttpGet("getAllUsers")]
         public List<User> GetAll()
         {
             return _userManager.GetUsers().ToList();
         }
-
+        [Authorize()]
+        [HttpGet("getRoles")]
+        public IEnumerable<RoleLw> GetRoles()
+        {
+            return _userManager.GetRoles();
+        }
+        [Authorize(Roles = Permissions.Roles.Admin)]
+        [HttpPost("save")]
+        public void SaveUser([FromBody] User user)
+        {
+            _userManager.SaveUser(user);
+        }
     }
 }

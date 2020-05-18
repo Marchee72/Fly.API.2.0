@@ -18,9 +18,8 @@ namespace Entities.DatabaseModels
         public string Password { get; set; }
         public string Name { get; set; }
         public string Lastname { get; set; }
+        public string Email { get; set; }
         public string Token { get; set; }
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string ProfilePicture { get; set; }
         public RoleLw Role { get; set; }
 
     }

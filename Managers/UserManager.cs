@@ -1,4 +1,5 @@
 ﻿using Entities.DatabaseModels;
+using Entities.Lw;
 using Helpers;
 using Managers.Interfaces;
 using Microsoft.Extensions.Options;
@@ -27,6 +28,10 @@ namespace Managers
             _pictures = pictures;
         }
 
+        public void SaveUser(User user)
+        {
+            _users.Create(user);
+        }
         public User GetUser(string userId)
         {
             return _users.Get(userId).WithoutPassword();
@@ -34,7 +39,7 @@ namespace Managers
 
         public List<Role.Access> GetPermissions(string roleId)
         {
-            return _roles.GetByName(roleId).Accesses;
+            return _roles.GetByName(roleId).AccessList;
         }
 
         public IQueryable<User> GetUsers()
@@ -46,7 +51,7 @@ namespace Managers
         {
             _pictures.UpdateOrInsertFromBytes(userId, img);
         }
-        
+
         public byte[] GetImg(string userId)
         {
             return _pictures.DownloadAsBytes(userId);
@@ -54,6 +59,13 @@ namespace Managers
         public void RemovePictureByName(string filename)
         {
             _pictures.RemoveByName(filename);
+        }
+
+        public IEnumerable<RoleLw> GetRoles()
+        {
+            return _roles.Get()
+                .ToList()
+                .Select(_ => _.ToLw());
         }
     }
 }

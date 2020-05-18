@@ -6,23 +6,20 @@ namespace Entities.Others
 {
     public static class Permissions
     {
-        public enum Access
+        public static class Roles
         {
-            Edificios,
-            Usuarios,
-            Dashboard,
-            Perfil,
+            public const string Admin = "Admin";
+            public const string Inquilino = "Inquilino";
+            public const string Propietario = "Propietario";
+
         }
 
-        public enum Roles
+        public static class Access
         {
-            Admin,
-            Inquilino,
-            Propietario
+            public const string Edificios = "Edificios";
+            public const string Dashboard = "Dashboard";
+            public const string Usuarios = "Usuarios";
+            public const string Perfil = "Perfil";
         }
-
-        public static string Admin => Roles.Admin.ToString();
-        public static string Inquilino => Roles.Inquilino.ToString();
-        public static string Propietario => Roles.Propietario.ToString();
     }
 }
