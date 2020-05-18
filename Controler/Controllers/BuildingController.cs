@@ -39,5 +39,13 @@ namespace Controllers
             
         }
 
+        [Authorize()]
+        [HttpGet("getAllByUser")]
+        public List<Building> GetAll(string userId)
+        {
+            return _buildingManager.GetBuildings(userId).ToList();
+
+        }
+
     }
 }

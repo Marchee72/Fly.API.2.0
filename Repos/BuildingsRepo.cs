@@ -25,6 +25,9 @@ namespace Repos
             _buildings.AsQueryable().FirstOrDefault(building => building.Id == id);
         public Building Get(string streetname, string streetNumber) =>
             _buildings.AsQueryable().SingleOrDefault(x => x.StreetName == streetname && x.StreetNumber == streetNumber);
+
+        public IQueryable<Building> GetAll(string userId) =>
+        _buildings.AsQueryable().Where(x => x.Administrator.Id == userId);
         public Building Create(Building building)
         {
             _buildings.InsertOne(building);

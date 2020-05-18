@@ -36,5 +36,10 @@ namespace Managers
             return _buildings.Get();
         }
 
+        public IQueryable<Building> GetBuildings(string userId)
+        {
+            return _buildings.GetAll(userId);
+        }
+
     }
 }

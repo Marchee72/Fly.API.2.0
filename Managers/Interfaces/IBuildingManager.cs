@@ -11,6 +11,8 @@ namespace Managers.Interfaces
         Building GetBuilding(string buildingId);
         IQueryable<Building> GetBuildings();
 
+        IQueryable<Building> GetBuildings(string userId);
+
     }
 }
 
