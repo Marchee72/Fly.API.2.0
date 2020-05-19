@@ -40,6 +40,10 @@ namespace Managers
         {
             return _buildings.GetAll(userId);
         }
+        public void SaveBuilding(Building building)
+        {
+            _buildings.Create(building);
+        }
 
     }
 }
