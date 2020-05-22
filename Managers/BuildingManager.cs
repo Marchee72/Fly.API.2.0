@@ -17,11 +17,13 @@ namespace Managers
     public class BuildingManager : IBuildingManager
     {
         private readonly IBuildingRepository _buildings;
+        private readonly IUserRepository _users;
 
 
-        public BuildingManager(IBuildingRepository buildings)
+        public BuildingManager(IBuildingRepository buildings, IUserRepository users)
         {
             _buildings = buildings;
+            _users = users;
 
         }
 
@@ -40,10 +42,14 @@ namespace Managers
         {
             return _buildings.GetAll(userId);
         }
-        public void SaveBuilding(Building building)
+        public void SaveBuilding(Building building, string userId)
         {
+            var user = _users.Get(userId);
+            building.Administrator = user.ToLw();
             _buildings.Create(building);
         }
+
+
 
     }
 }

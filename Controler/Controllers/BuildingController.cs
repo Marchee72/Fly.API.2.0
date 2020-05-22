@@ -24,6 +24,8 @@ namespace Controllers
             _buildingManager = buildingManager;
         }
 
+
+
         [Authorize()]
         [HttpGet("getBuildingInformation")]
         public Building GetBuilding()
@@ -41,14 +43,13 @@ namespace Controllers
             
         }
 
-        [Authorize()]
+        [Authorize(Roles = Permissions.Roles.Admin)]
         [HttpPost("save")]
         public void SaveUser([FromBody] Building building)
         {
             //ver si puedo obtener directo el User
             var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
-            building.Administrator.Id = userId;
-            _buildingManager.SaveBuilding(building);
+            _buildingManager.SaveBuilding(building,userId);
         }
     }
 }
