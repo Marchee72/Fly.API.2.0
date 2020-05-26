@@ -111,7 +111,7 @@ namespace Toolkit
                 BuildingName = Console.ReadLine(),
                 StreetName = Console.ReadLine(),
                 StreetNumber = Console.ReadLine(),
-                Floors = Console.ReadLine(),
+                Floors = new List<Floor>(),
                 Administrator = user.ToLw()
 
             };

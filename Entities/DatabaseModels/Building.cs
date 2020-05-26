@@ -1,4 +1,6 @@
-﻿using Entities.Lw;
+﻿using Entities.Interfaces;
+using Entities.Lw;
+using Entities.Others;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
@@ -17,9 +19,7 @@ namespace Entities.DatabaseModels
         public string BuildingName { get; set; }
         public string StreetName { get; set; }
         public string StreetNumber { get; set; }
-        public string Floors { get; set; }
-
+        public List<Floor> Floors { get; set; }
         public UserLw Administrator { get; set; }
-
     }
 }
