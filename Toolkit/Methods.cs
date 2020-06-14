@@ -69,7 +69,7 @@ namespace Toolkit
             var rolesCollection = _database.GetCollection<Role>("roles");
             var role = new Role()
             {
-                Name = Permissions.Roles.Admin,
+                Name = Permissions.Roles.Administracion,
                 AccessList = new List<Role.Access>()
                 {
                     new Role.Access(Permissions.Access.Edificios, "/buildings", "mdi-office-building"),

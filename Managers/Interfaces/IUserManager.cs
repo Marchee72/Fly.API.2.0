@@ -17,5 +17,6 @@ namespace Managers.Interfaces
         byte[] GetImg(string userId);
         void RemovePictureByName(string filename);
         IEnumerable<RoleLw> GetRoles();
+        IEnumerable<UserLw> GetAdmins(string userId);
     }
 }

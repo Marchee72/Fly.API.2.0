@@ -1,5 +1,6 @@
 ﻿using Entities.DatabaseModels;
 using Entities.Lw;
+using Entities.Others;
 using Helpers;
 using Managers.Interfaces;
 using Microsoft.Extensions.Options;
@@ -66,6 +67,18 @@ namespace Managers
             return _roles.Get()
                 .ToList()
                 .Select(_ => _.ToLw());
+        }
+
+        public IEnumerable<UserLw> GetAdmins(string userId)
+        {
+            var role = _users.Get(userId).Role;
+            if (role.Name == Permissions.Roles.Admin)
+                return _users.GetByRole(Permissions.Roles.Administracion)
+                    .AsEnumerable()
+                    .Select(_ => _.ToLw());
+            if (role.Name == Permissions.Roles.Administracion)
+                return _users.Get(userId).ToLw() as IEnumerable<UserLw>;
+            throw new UnauthorizedAccessException();
         }
     }
 }

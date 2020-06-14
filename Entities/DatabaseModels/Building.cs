@@ -19,6 +19,7 @@ namespace Entities.DatabaseModels
         public string BuildingName { get; set; }
         public string StreetName { get; set; }
         public string StreetNumber { get; set; }
+        public bool Bis { get; set; }
         public List<Floor> Floors { get; set; }
         public UserLw Administrator { get; set; }
     }

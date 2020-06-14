@@ -25,6 +25,9 @@ namespace Repos
             _users.AsQueryable().FirstOrDefault(user => user.Id == id);
         public User Get(string username, string password) => 
             _users.AsQueryable().SingleOrDefault(x => x.Username == username && x.Password == password);
+
+        public IQueryable<User> GetByRole(string roleName) =>
+            _users.AsQueryable().Where(_ => _.Role.Name == roleName);
         public User Create(User user)
         {
             _users.InsertOne(user);

@@ -42,10 +42,8 @@ namespace Managers
         {
             return _buildings.GetAll(userId);
         }
-        public void SaveBuilding(Building building, string userId)
+        public void SaveBuilding(Building building)
         {
-            var user = _users.Get(userId);
-            building.Administrator = user.ToLw();
             _buildings.Create(building);
         }
 

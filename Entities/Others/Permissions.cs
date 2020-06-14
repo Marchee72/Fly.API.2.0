@@ -9,6 +9,7 @@ namespace Entities.Others
         public static class Roles
         {
             public const string Admin = "Admin";
+            public const string Administracion = "Empresa administradora";
             public const string Inquilino = "Inquilino";
             public const string Propietario = "Propietario";
 

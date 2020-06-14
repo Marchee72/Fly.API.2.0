@@ -43,13 +43,11 @@ namespace Controllers
             
         }
 
-        [Authorize(Roles = Permissions.Roles.Admin)]
         [HttpPost("save")]
-        public void SaveUser([FromBody] Building building)
+        [Roles(Permissions.Roles.Admin, Permissions.Roles.Administracion)]
+        public void SaveBuilding([FromBody] Building building)
         {
-            //ver si puedo obtener directo el User
-            var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
-            _buildingManager.SaveBuilding(building,userId);
+            _buildingManager.SaveBuilding(building);
         }
     }
 }

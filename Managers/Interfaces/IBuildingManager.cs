@@ -12,7 +12,7 @@ namespace Managers.Interfaces
         IQueryable<Building> GetBuildings();
 
         IQueryable<Building> GetBuildings(string userId);
-        void SaveBuilding(Building building,string userId);
+        void SaveBuilding(Building building);
 
     }
 }

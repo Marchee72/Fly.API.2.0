@@ -84,5 +84,12 @@ namespace Controllers
         {
             _userManager.SaveUser(user);
         }
+        [Roles(Permissions.Roles.Admin, Permissions.Roles.Administracion)]
+        [HttpGet("getAdministrators")]
+        public IEnumerable<UserLw> GetAdministrators()
+        {
+            var userId = User.Claims.First(_ => _.Type == ClaimTypes.Name).Value;
+            return _userManager.GetAdmins(userId);
+        }
     }
 }
